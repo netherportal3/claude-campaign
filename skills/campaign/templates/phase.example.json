@@ -1,0 +1,54 @@
+{
+  "runName": "example-run",
+  "run": "/home/you/.claude/campaigns/example-run",
+  "skill": "/home/you/.claude/skills/campaign",
+  "phase": "build",
+  "mode": "lanes",
+  "stopPct": 50,
+  "maxActive": 10,
+  "usageEvery": 4,
+  "minRemainingTokens": 300000,
+  "base": "main",
+  "mergeFlags": "--squash",
+  "rules": "Prod is live: additive migrations only. Secrets only from the run's key file, never printed. Never touch the user's open windows or accounts.",
+  "lanes": [
+    {
+      "id": "A",
+      "title": "Settings pages",
+      "brief": "Goal ... Read first: recon/web-ui.md #1 #2. Owns web/src/settings/**.",
+      "verify": "lane",
+      "model": { "implement": "sonnet" },
+      "items": [
+        { "id": "1", "title": "Profile page", "brief": "... Done: page < 500 ms warm; e2e desktop + phone pass." },
+        { "id": "2", "title": "Notification preferences", "brief": "... Done: saving persists across reload; unit + e2e tests pass." }
+      ]
+    },
+    {
+      "id": "B",
+      "title": "Session handling",
+      "brief": "Goal ... Read first: recon/auth.md. Owns api/src/auth/**.",
+      "verify": "independent",
+      "after": ["A"],
+      "items": [
+        { "id": "1", "title": "Rotate session ids on login", "brief": "... Done: old session id rejected after login; tests cover fixation." }
+      ]
+    },
+    {
+      "id": "D",
+      "title": "Dependency audit round 1",
+      "concurrent": true,
+      "maxParallelItems": 6,
+      "model": { "audit": "opus" },
+      "stages": [
+        { "name": "audit", "worktree": false, "brief": "Audit the package named in the item: known advisories, where this repo uses it, and the smallest safe upgrade. Write it into the lane doc. Return skip if nothing needs changing." },
+        "implement",
+        "verify",
+        "merge",
+        { "name": "report", "worktree": false, "brief": "Append a one-line result for this package to summaries/deps.md and return done." }
+      ],
+      "items": [
+        { "id": "p01", "title": "example-http-client", "brief": "Pinned two majors behind; used in api/src/clients/**." }
+      ]
+    }
+  ]
+}

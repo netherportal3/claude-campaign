@@ -1,0 +1,15 @@
+{
+  "name": "claude-campaign",
+  "description": "campaign: run a big multi-part coding job unattended from one Claude Code session, as phases of Workflow agents with one merge queue.",
+  "owner": {
+    "name": "netherportal3",
+    "url": "https://github.com/netherportal3"
+  },
+  "plugins": [
+    {
+      "name": "campaign",
+      "source": "./",
+      "description": "Scout with read-only agents, plan and stop for your go, pilot, then run phases where every item flows implement -> verify -> one serialized merge queue. State docs, usage stop, crash-safe resume."
+    }
+  ]
+}

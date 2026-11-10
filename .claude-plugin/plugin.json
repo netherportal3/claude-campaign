@@ -1,0 +1,12 @@
+{
+  "name": "campaign",
+  "version": "0.1.0",
+  "description": "Run a massive multi-part coding job unattended from one session: read-only scouts, a plan that stops for your go, a small pilot, then phases of Workflow agents where every item flows implement -> verify -> one serialized merge queue. State docs for every path, questions never block, usage and token stops, crash-safe resume.",
+  "author": {
+    "name": "netherportal3",
+    "url": "https://github.com/netherportal3"
+  },
+  "repository": "https://github.com/netherportal3/claude-campaign",
+  "license": "MIT",
+  "keywords": ["claude-code", "skills", "workflows", "agents", "orchestration", "automation"]
+}
